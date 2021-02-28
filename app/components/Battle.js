@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable max-classes-per-file */
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -141,7 +142,15 @@ export default class Battle extends React.Component {
     const { playerOne, playerTwo, battle } = this.state;
 
     if (battle) {
-      return <Results playerOne={playerOne} playerTwo={playerTwo} />;
+      return (
+        <Results
+          onReset={() =>
+            this.setState({ playerOne: null, playerTwo: null, battle: false })
+          }
+          playerOne={playerOne}
+          playerTwo={playerTwo}
+        />
+      );
     }
 
     return (
