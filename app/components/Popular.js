@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
@@ -5,6 +6,7 @@ import PropTypes from 'prop-types';
 import { FaUser, FaStar, FaCodeBranch, FaExclamationTriangle } from 'react-icons/fa';
 import fetchRepos from '../utils/api';
 import Card from './Card';
+import Loading from './Loading';
 
 function LanguagesNav({ selected, updateLanguage }) {
   const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
@@ -130,7 +132,7 @@ export default class Popular extends React.Component {
     return (
       <>
         <LanguagesNav selected={selectedLanguage} updateLanguage={this.updateLanguage} />
-        {this.isLoading() && <p>Loading</p>}
+        {this.isLoading() && <Loading text="Fetching Repos" />}
         {error && <p className="center-text error">{error}</p>}
         {repos[selectedLanguage] && <RepositoriesGrid repos={repos[selectedLanguage]} />}
       </>

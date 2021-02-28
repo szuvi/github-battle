@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaUser } from 'react-icons/fa';
 import { battle } from '../utils/api';
 import Card from './Card';
+import Loading from './Loading';
 
 function ProfileList({ profile }) {
   return (
@@ -76,7 +77,7 @@ export default class Results extends React.Component {
     const { winner, loser, error, loading } = this.state;
     const { onReset } = this.props;
     if (loading === true) {
-      return <p>LOADING</p>;
+      return <Loading />;
     }
 
     if (error) {
