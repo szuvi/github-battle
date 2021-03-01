@@ -28,7 +28,7 @@ export default class Loading extends React.Component {
     this.interval = window.setInterval(() => {
       // eslint-disable-next-line no-unused-expressions
       content === `${text}...`
-        ? this.setState({ content: text })
+        ? this.setState(() => this.setState({ content: text }))
         : // eslint-disable-next-line no-shadow
           this.setState(({ content }) => this.setState({ content: `${content}.` }));
     }, speed);
