@@ -2,6 +2,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaUser } from 'react-icons/fa';
+import QueryString from 'query-string';
+import { Link } from 'react-router-dom';
 import { battle } from '../utils/api';
 import Card from './Card';
 import Loading from './Loading';
@@ -59,7 +61,11 @@ export default class Results extends React.Component {
   }
 
   componentDidMount() {
-    const { playerOne, playerTwo } = this.props;
+    const {
+      // eslint-disable-next-line react/prop-types
+      location: { search },
+    } = this.props;
+    const { playerOne, playerTwo } = QueryString.parse(search);
 
     battle([playerOne, playerTwo])
       .then((results) =>
@@ -80,7 +86,6 @@ export default class Results extends React.Component {
 
   render() {
     const { winner, loser, error, loading } = this.state;
-    const { onReset } = this.props;
     if (loading === true) {
       return <Loading />;
     }
@@ -112,16 +117,10 @@ export default class Results extends React.Component {
             <ProfileList profile={loser.profile} />
           </Card>
         </div>
-        <button type="button" className="btn dark-btn btn-space" onClick={onReset}>
+        <Link className="btn dark-btn btn-space" to="/battle">
           Reset
-        </button>
+        </Link>
       </>
     );
   }
 }
-
-Results.propTypes = {
-  playerOne: PropTypes.string.isRequired,
-  playerTwo: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired,
-};
